@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="glowing-ball"></div>
+
+  <a href="https://discord.gg/getpivot" target="_blank" class="discord-link">
+    Join Discord
+  </a>
+
+  <header class="welcome-header">
+    <img src="https://cdn.discordapp.com/attachments/1352356491931422855/1401016659799445594/123455.png?ex=688ebdf1&is=688d6c71&hm=26bd6ced2ab8aef16ce7e4d6777fa936becb8bf4e79df860bb3525d825b9215d&" alt="Logo" class="logo" />
+    <div class="text-container">
+      <span class="sparkle"></span>
+      <h1></h1>
+      <span class="sparkle"></span>
+    </div>
+    <p class="tagline"></p>
+  </header>
+
+  <div class="center-box">
+    <div class="toggle-header">
+      <span id="show-login" class="toggle-option active">Login</span>
+      <span id="show-register" class="toggle-option">Register</span>
+    </div>
+
+    <form id="login-form" class="form-content">
+      <div class="input-wrapper">
+        <label for="login-username">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Username
+        </label>
+        <input type="text" placeholder="Enter Your Username" required id="login-username" />
+      </div>
+      <div class="input-wrapper">
+        <label for="login-password">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-keyhole-icon lucide-lock-keyhole"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
+          Password
+        </label>
+        <input type="password" placeholder="Enter Your Password" required id="login-password" />
+      </div>
+      <div class="input-wrapper">
+        <label for="login-whitelist">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-icon lucide-key"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+          Whitelist Key
+        </label>
+        <input type="text" placeholder="Enter Whitelist Key" required id="login-whitelist" />
+        <div id="login-whitelist-error" class="error-message hidden">Invalid key, username mismatch, or key is blacklisted.</div>
+      </div>
+      <button type="submit">Login</button>
+      <div class="divider"></div>
+      <div class="cheat-warning">Fragment #1 Cheat</div>
+    </form>
+
+    <form id="register-form" class="form-content hidden">
+      <div class="input-wrapper">
+        <label for="register-username">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Username
+        </label>
+        <input type="text" placeholder="Choose a Username" required id="register-username" />
+      </div>
+      <div class="input-wrapper">
+        <label for="register-password">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-keyhole-icon lucide-lock-keyhole"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
+          Password
+        </label>
+        <input type="password" placeholder="Choose a Password" required id="register-password" />
+      </div>
+      <div class="input-wrapper">
+        <label for="register-whitelist">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-icon lucide-key"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+          Whitelist Key
+        </label>
+        <input type="text" placeholder="Enter Whitelist Key" required id="register-whitelist" />
+        <div id="register-whitelist-error" class="error-message hidden">Invalid or already registered key.</div>
+      </div>
+      <button type="submit">Register</button>
+      <div class="divider"></div>
+      <div class="cheat-warning">Fragment #1 Cheat</div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
