@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pivot - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <!-- Discord Link -->
+    <a href="https://discord.com" class="discord-link">
+        <i class="fab fa-discord mr-2"></i>Join Discord
+    </a>
+
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <img src="https://cdn.discordapp.com/attachments/1394206394252656791/1401789201040674837/Pivot_1.png?ex=6894d92d&is=689387ad&hm=7c138c1f8651b28d28ae0db9b6f40c0a835a18069e6a43dc2e1ceafc9f0c8f90&" alt="Pivot Logo" class="logo">
+        <div class="text-container">
+            <h1></h1>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="center-box">
+        <div class="toggle-header">
+            <div class="toggle-option active" data-form="login">Login</div>
+            <div class="toggle-option" data-form="register">Register</div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="form-content">
+            <div class="input-wrapper">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter username" required>
+            </div>
+            <div class="input-wrapper">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter password" required>
+            </div>
+            <div class="input-wrapper">
+                <label for="loginKey">Whitelist Key</label>
+                <input type="text" id="loginKey" placeholder="Enter whitelist key" required>
+                <p class="error-message hidden">Invalid key, username mismatch, or key is blacklisted.</p>
+            </div>
+            <button type="submit">Login</button>
+            <div class="divider"></div>
+            <p class="cheat-warning">Login With Your Key</p>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="form-content hidden">
+            <div class="input-wrapper">
+                <label for="registerUsername">Username</label>
+                <input type="text" id="registerUsername" placeholder="Enter username" required>
+            </div>
+            <div class="input-wrapper">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" placeholder="Enter password" required>
+            </div>
+            <div class="input-wrapper">
+                <label for="registerKey">Whitelist Key</label>
+                <input type="text" id="registerKey" placeholder="Enter whitelist key" required>
+                <p class="error-message hidden">Invalid or already registered key.</p>
+            </div>
+            <button type="submit">Register</button>
+            <div class="divider"></div>
+            <p class="cheat-warning">Register With Your Key</p>
+        </form>
+    </div>
+
+    <script>
+        // Toggle between login and register forms
+        document.querySelectorAll('.toggle-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+
+                const formId = option.getAttribute('data-form') + 'Form';
+                document.querySelectorAll('.form-content').forEach(form => form.classList.add('hidden'));
+                document.getElementById(formId).classList.remove('hidden');
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errorMessage = document.querySelector('#loginForm .error-message');
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            // Simulate successful login by setting a token
+            localStorage.setItem('adminToken', 'dummy-token');
+            window.location.href = 'dashboard.html';
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errorMessage = document.querySelector('#registerForm .error-message');
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            // Add actual register logic here
+        });
+
+        // Particle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.width = '6px';
+            dot.style.height = '6px';
+            dot.style.left = `${e.clientX}px`;
+            dot.style.top = `${e.clientY}px`;
+            document.body.appendChild(dot);
+            setTimeout(() => dot.remove(), 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pivot Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo-section">
+                <i class="fas fa-bolt"></i>
+                <span>Pivot</span>
+            </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="home"><i class="fas fa-home"></i> Home</button>
+                <button class="nav-tab" data-tab="announcements"><i class="fas fa-bullhorn"></i> Announcements</button>
+                <button class="nav-tab" data-tab="updates"><i class="fas fa-sync"></i> Updates</button>
+                <button class="nav-tab" data-tab="download"><i class="fas fa-download"></i> Download</button>
+                <button class="nav-tab" data-tab="forums"><i class="fas fa-comments"></i> Forums</button>
+                <button class="nav-tab" data-tab="admins"><i class="fas fa-users-cog"></i> Admins</button>
+                <button class="nav-tab" data-tab="audit"><i class="fas fa-clipboard-list"></i> Audit Log</button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>Online</span>
+            </div>
+            <div class="admin-profile">
+                <div class="profile-avatar">SA</div>
+                <div class="profile-info">
+                    <span class="admin-name">Super Admin</span>
+                    <span class="admin-role">Administrator</span>
+                </div>
+                <button class="profile-dropdown"><i class="fas fa-chevron-down"></i></button>
+            </div>
+            <div class="profile-menu" id="profileMenu">
+                <div class="profile-menu-item" onclick="viewProfile()">
+                    <i class="fas fa-user"></i> View Profile
+                </div>
+                <div class="profile-menu-item" onclick="editSettings()">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="profile-menu-item" onclick="viewActivityLog()">
+                    <i class="fas fa-clipboard-list"></i> Activity Log
+                </div>
+                <div class="profile-menu-divider"></div>
+                <div class="profile-menu-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <section id="home-tab" class="tab-content active">
+            <div class="dashboard-header">
+                <h1>Pivot Overview</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh Data
+                    </button>
+                    <button class="btn-secondary" onclick="exportReport()">
+                        <i class="fas fa-file-export"></i> Export Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Total Downloads</h3>
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="metric-value">
+                        <span id="totalDownloads">0</span>
+                    </div>
+                    <div class="metric-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="metric-footer">
+                        <span><i class="fas fa-arrow-up"></i> 2.5%</span>
+                        since last hour
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Active Discussions</h3>
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="metric-value">
+                        <span id="activeDiscussions">0</span>
+                    </div>
+                    <div class="metric-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="metric-footer">
+                        <span><i class="fas fa-arrow-up"></i> 0.1%</span>
+                        since last hour
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Recent Updates</h3>
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div class="metric-value">
+                        <span id="recentUpdates">0</span>
+                    </div>
+                    <div class="metric-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="metric-footer">
+                        <span><i class="fas fa-arrow-up"></i> 1.2%</span>
+                        since last hour
+                    </div>
+                </div>
+            </div>
+
+            <div class="overview-section">
+                <div class="overview-row">
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3>Latest Announcements</h3>
+                            <button class="btn-primary"><i class="fas fa-sync"></i> Refresh</button>
+                        </div>
+                        <div class="overview-content announcement-list">
+                            <!-- Dynamically populated with recently added announcements -->
+                            <div class="announcement-item" onclick="showAnnouncementDetail('welcome')">
+                                <span class="announcement-title">Welcome to the new dashboard!</span>
+                                <span class="announcement-by">by Admin</span>
+                            </div>
+                            <div class="announcement-item" onclick="showAnnouncementDetail('maintenance')">
+                                <span class="announcement-title">Scheduled maintenance on 2025-08-10</span>
+                                <span class="announcement-by">by Admin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3>Recent Updates</h3>
+                            <button class="btn-primary"><i class="fas fa-sync"></i> Refresh</button>
+                        </div>
+                        <div class="overview-content alert-list">
+                            <!-- Dynamically populated with recently added updates -->
+                            <div class="alert-item" onclick="showUpdateDetail('version213')">
+                                <span class="alert-title">Version 2.1.3 released with bug fixes</span>
+                                <span class="alert-by">by Admin</span>
+                            </div>
+                            <div class="alert-item" onclick="showUpdateDetail('securityPatch')">
+                                <span class="alert-title">Security patch applied</span>
+                                <span class="alert-by">by Admin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-row">
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3>Recent Forums</h3>
+                            <button class="btn-primary"><i class="fas fa-sync"></i> Refresh</button>
+                        </div>
+                        <div class="overview-content forum-list">
+                            <!-- Dynamically populated with recent forum posts -->
+                            <div class="forum-item">
+                                <span class="forum-title">New Feature Discussion</span>
+                                <span class="forum-by">by User1</span>
+                            </div>
+                            <div class="forum-item">
+                                <span class="forum-title">Bug Report Thread</span>
+                                <span class="forum-by">by User2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3>Recent Downloads</h3>
+                            <button class="btn-primary"><i class="fas fa-sync"></i> Refresh</button>
+                        </div>
+                        <div class="overview-content download-list">
+                            <!-- Dynamically populated with recent downloads -->
+                            <div class="download-item">
+                                <span class="download-title">Pivot v2.1.3 Installer</span>
+                                <span class="download-by">by Admin</span>
+                            </div>
+                            <div class="download-item">
+                                <span class="download-title">Documentation PDF</span>
+                                <span class="download-by">by Admin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="announcements-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Announcements</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="announcement-form">
+                <form id="announcementForm">
+                    <input type="text" id="announcementTitle" placeholder="Announcement Title" required>
+                    <textarea id="announcementContent" placeholder="Announcement Content" required></textarea>
+                    <button type="submit" class="btn-primary">Post Announcement</button>
+                </form>
+            </div>
+
+            <div class="overview-section">
+                <div class="overview-card">
+                    <div class="overview-header">
+                        <h3>All Announcements</h3>
+                    </div>
+                    <div class="overview-content announcement-list">
+                        <!-- Dynamically populated with all announcements -->
+                        <div class="announcement-item" id="welcome">
+                            <div class="announcement-content">Welcome to the new dashboard!</div>
+                            <div class="announcement-meta">
+                                <span>Posted by Admin</span>
+                                <span>2025-08-07 15:21</span>
+                            </div>
+                        </div>
+                        <div class="announcement-item" id="maintenance">
+                            <div class="announcement-content">Scheduled maintenance on 2025-08-10</div>
+                            <div class="announcement-meta">
+                                <span>Posted by Admin</span>
+                                <span>2025-08-07 15:20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="updates-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>System Updates</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                    <button class="btn-primary" onclick="applyUpdate()">
+                        <i class="fas fa-check"></i> Apply Updates
+                    </button>
+                </div>
+            </div>
+
+            <div class="update-form">
+                <form id="updateForm">
+                    <input type="text" id="updateTitle" placeholder="Update Title" required>
+                    <textarea id="updateContent" placeholder="Update Content" required></textarea>
+                    <button type="submit" class="btn-primary">Post Update</button>
+                </form>
+            </div>
+
+            <div class="overview-section">
+                <div class="overview-card">
+                    <div class="overview-header">
+                        <h3>All Updates</h3>
+                    </div>
+                    <div class="overview-content update-list">
+                        <!-- Dynamically populated with all updates -->
+                        <div class="alert-item" id="version213">
+                            <div class="alert-content">Version 2.1.3 released with bug fixes</div>
+                            <div class="alert-meta">
+                                <span>Posted by Admin</span>
+                                <span>2025-08-07 15:19</span>
+                            </div>
+                        </div>
+                        <div class="alert-item" id="securityPatch">
+                            <div class="alert-content">Security patch applied</div>
+                            <div class="alert-meta">
+                                <span>Posted by Admin</span>
+                                <span>2025-08-07 15:18</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Downloads</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="download-list">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </section>
+
+        <section id="forums-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Community Forums</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="forum-list">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </section>
+
+        <section id="admins-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Admin Management</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="addUser()">
+                        <i class="fas fa-user-plus"></i> Add Admin
+                    </button>
+                    <button class="btn-primary" id="generateKey">
+                        <i class="fas fa-key"></i> Generate Key
+                    </button>
+                </div>
+            </div>
+
+            <div class="key-container">
+                <p id="generatedKey">Click "Generate Key" to create a new admin key</p>
+            </div>
+
+            <div class="user-filters">
+                <input type="text" id="userSearch" placeholder="Search users...">
+                <select id="roleFilter">
+                    <option value="all">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="user">User</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="all">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="suspended">Suspended</option>
+                </select>
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content will be loaded here -->
+                </tbody>
+            </table>
+
+            <div class="table-pagination">
+                <div class="pagination-controls">
+                    <button class="pagination-btn" onclick="previousPage()">Previous</button>
+                    <div class="pagination-pages"></div>
+                    <button class="pagination-btn" onclick="nextPage()">Next</button>
+                </div>
+                <span class="pagination-info"></span>
+            </div>
+        </section>
+
+        <section id="audit-tab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Audit Log</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="audit-list">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <span id="loadingText">Processing...</span>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <button class="modal-close" onclick="closeModal('confirmModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+                <button class="btn-primary" id="confirmAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
